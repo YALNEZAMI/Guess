@@ -93,6 +93,7 @@ export class AppComponent {
         alertDiv.style.display = 'none';
       }, 4000);
     } else {
+      this.word = this.word.trim().toLowerCase();
       //if the word is not in the list
       //push it to the list
       this.words.push(this.word);
