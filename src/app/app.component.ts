@@ -38,6 +38,7 @@ export class AppComponent {
     this.currentPlayer = this.player1; //player1 starts
     this.restart();
   }
+  currentInterval: any;
   restart() {
     //reset all the variables
     this.words = [];
@@ -45,10 +46,8 @@ export class AppComponent {
     this.end = 'whatever !';
     this.currentPlayer = this.player1;
     this.counter = 30;
-    //hide the result
-    let result = document.getElementById('result') as HTMLDivElement;
-    result.style.display = 'none';
     //set the counter
+    clearInterval(this.currentInterval);
     let interval = setInterval(() => {
       if (this.counter > 0) {
         this.counter--;
@@ -66,6 +65,11 @@ export class AppComponent {
         result.style.display = 'block';
       }
     }, 1000);
+    this.currentInterval = interval;
+
+    //hide the result
+    let result = document.getElementById('result') as HTMLDivElement;
+    result.style.display = 'none';
   }
 
   addWord() {
@@ -103,14 +107,21 @@ export class AppComponent {
       let end =
         this.word.charAt(this.word.length - 2) +
         this.word.charAt(this.word.length - 1);
-      //if the end is or 'ء' then change we take the 2 previous letters
-      if (this.word.charAt(this.word.length - 1) == 'ء') {
-        end =
-          this.word.charAt(this.word.length - 3) +
-          this.word.charAt(this.word.length - 2);
+      //change exeptionnel arabic letters
+      end = end.replace('ة', 'ت');
+      end = end.replace('ى', 'ا');
+      end = end.replace('ئ', 'ا');
+      end = end.replace('ء', 'ا');
+      end = end.replace('ؤ', 'و');
+
+      if (end.charAt(0) == 'ا' && end.charAt(1) == 'ا') {
+        end = this.word.charAt(this.word.length - 3) + end.charAt(1);
       }
       this.end = end;
-      this.word = '';
+      this.word = end;
+      //focus on the input
+      let input = document.getElementById('wordInput') as HTMLInputElement;
+      input.focus();
       //change player turn
       if (this.currentPlayer == this.player1) {
         this.currentPlayer = this.player2;
