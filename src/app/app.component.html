@@ -85,9 +85,11 @@
     {{ alert }}
   </p>
   <hr />
-  <ol>
-    <li *ngFor="let word of words">{{ word }}</li>
-  </ol>
+  <div class="d-flex flex-row">
+    <span class="m-10" *ngFor="let word of words; let i = index">{{
+      i + 1 + "." + word
+    }}</span>
+  </div>
 </main>
 <div id="result" class="br-10">
   <div class="text-center">

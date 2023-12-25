@@ -21,9 +21,13 @@ export class AppComponent {
   constructor() {}
   start() {
     //check if the players names are not empty
-    if (this.player1 == '' || this.player2 == '') {
+    if (
+      this.player1 == '' ||
+      this.player2 == '' ||
+      this.player1 == this.player2
+    ) {
       //if empty alert the user
-      alert('Please enter the players names');
+      alert('Please enter tow different players names');
       let player1Input = document.getElementById(
         'player1Input'
       ) as HTMLInputElement;
@@ -74,7 +78,7 @@ export class AppComponent {
   }
 
   addWord() {
-    if (this.word === '') return;
+    if (this.word.length < 2) return;
     if (this.words.includes(this.word)) {
       //if the word is already in the list
       //alert user during 2 seconds
