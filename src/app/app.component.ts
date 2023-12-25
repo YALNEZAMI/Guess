@@ -16,6 +16,8 @@ export class AppComponent {
   counter: number = 30;
   winner: string = '';
   alert: string = '';
+  currentInterval: any;
+
   constructor() {}
   start() {
     //check if the players names are not empty
@@ -38,7 +40,6 @@ export class AppComponent {
     this.currentPlayer = this.player1; //player1 starts
     this.restart();
   }
-  currentInterval: any;
   restart() {
     //reset all the variables
     this.words = [];
@@ -100,7 +101,7 @@ export class AppComponent {
       this.word = this.word.trim().toLowerCase();
       //if the word is not in the list
       //push it to the list
-      this.words.push(this.word);
+      this.words.unshift(this.word);
       //restart the counter
       this.counter = 30;
       //define the end of the word
